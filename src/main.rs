@@ -1,7 +1,11 @@
+mod oss;
+
 use futures::StreamExt;
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
+use substring::Substring;
 use tokio;
+use crate::oss::OssConfig;
 
 #[derive(Serialize)]
 struct ChatBody {
@@ -40,24 +44,16 @@ async fn main() -> Result<(), reqwest::Error>{
     // 创建一个Client 实例
     let client = Client::new();
 
-    // 从oss拉取文件，先尝试用http链接，后续TODO：用s3的方式；
-    // let file_path_url = "https://oss-cn-foshan-2.biubiu.com/service-log/%E9%97%AE%E9%A2%98%E7%AD%94%E7%96%91.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=yt8fbg0lugdrtrw5wbyfmfyl%2F20241112%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241112T022436Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&response-content-type=application%2Foctet-stream&X-Amz-Signature=c6eff8f8effb8fc1564e2d5b93bde453f65aa66b7824889b7a7ff4cd47c4d082";
-    let file_path_url = "your_oss_or_other_remote_file_path";
-    let result = reqwest::get(file_path_url).await;
-    let mut content = "".to_string();
-    match result {
-        Ok(response) => {
-            if response.status().is_success() {
-                content = response.text().await.unwrap();
-            } else {
-                println!("error: {}", response.status());
-                assert!(false, "error: {}", response.status());
-            }
-        }
-        Err(e) => {
-            println!("error: {}", e);
-        }
-    }
+    // 从oss拉取文件,S3的方式
+    let oss_config = OssConfig {
+        access_key: "".to_string(),
+        secret_key: "".to_string(),
+        suffix: "oss-cn-foshan-2.company.com".to_string()
+    };
+    let object_name = "问题答疑.txt";
+    let oss_client = oss::oss_client(oss_config).unwrap();
+    let content = oss::cat_object(&oss_client, "service-log", object_name).await.unwrap();
+    println!("{}", content.substring(0, 100));
 
     let mut prompt = format!("根据上下文回答问题，请用简体中文简洁地回答。
     上下文:
