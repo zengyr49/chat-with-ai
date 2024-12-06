@@ -1,4 +1,4 @@
-use minio::s3::args::{DownloadObjectArgs, GetObjectArgs, GetPresignedObjectUrlArgs};
+use minio::s3::args::GetPresignedObjectUrlArgs;
 use minio::s3::client::Client;
 use minio::s3::creds::StaticProvider;
 use minio::s3::error::Error;
@@ -59,8 +59,8 @@ pub async fn cat_object(client: &Client, bucket_name:&str, object_name:&str) -> 
 
 #[cfg(test)]
 mod tests {
-    use substring::Substring;
     use crate::oss::{cat_object, oss_client, OssConfig};
+    use substring::Substring;
 
     #[tokio::test]
     pub async fn test() {
