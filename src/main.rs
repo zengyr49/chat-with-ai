@@ -3,6 +3,8 @@ mod demo_get_oss_and_chat;
 mod base_body;
 mod demo_send_img_and_chat;
 
+mod demo_read_file_and_chat;
+
 use futures::StreamExt;
 use reqwest::{Client};
 use serde::{Deserialize, Serialize};
@@ -21,6 +23,7 @@ async fn main() -> Result<(), reqwest::Error>{
 
     // DEMO: load pic, transfer to base64, and send to multimodal model
     send_img_and_chat().await;
+
 
     Ok(())
 }

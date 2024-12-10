@@ -11,12 +11,13 @@ pub async fn send_img_and_chat() {
     let client = Client::new();
 
     println!("{}", "extracting picture......");
-    let pic_base64 = get_img_and_decode("/Users/zengyr7/Downloads/apple.jpeg".to_string());
+    // let pic_base64 = get_img_and_decode("/Users/zengyr7/Downloads/apple.jpeg".to_string());
+    let pic_base64 = get_img_and_decode("/Users/zengyr7/Downloads/coffee.webp".to_string());
     println!("extract succeed");
 
     let mut prompt = format!("根据图片回答问题，请用简体中文简洁地回答。
     问题: {}
-    ", "图片里的物体是什么");
+    ", "请描述本图，图中包含什么物体");
 
     // 用minicpm-v2.6
     let mut body = ChatBody {
