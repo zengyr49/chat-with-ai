@@ -1,4 +1,4 @@
-use crate::{send_and_return_stream, ChatBody, Options};
+use crate::base_body::{send_and_return_stream, ChatBody, Options};
 use reqwest::Client;
 use std::fs::File;
 use std::io::Read;

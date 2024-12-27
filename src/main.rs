@@ -1,29 +1,30 @@
 mod oss;
 mod demo_get_oss_and_chat;
-mod base_body;
 mod demo_send_img_and_chat;
 
 mod demo_read_file_and_chat;
+mod base_body;
+mod img_chat;
 
+use axum::Router;
+use axum::routing::post;
 use futures::StreamExt;
-use reqwest::{Client};
 use serde::{Deserialize, Serialize};
 use substring::Substring;
 use tokio;
-use crate::oss::OssConfig;
-use crate::base_body::{send_and_return_stream, ChatBody, ChatResponse, Options};
-use crate::demo_get_oss_and_chat::get_oss_and_chat;
-use crate::demo_send_img_and_chat::send_img_and_chat;
+use img_chat::send_img_and_chat;
 
+///
+/// 主函数，暴露端点给到外部
+///
+///
 #[tokio::main]
 async fn main() -> Result<(), reqwest::Error>{
+    let app = Router::new()
+        .route("/send_img_and_chat", post(send_img_and_chat::send_img_and_chat));
 
-    // DEMO: get oss and chat
-    // get_oss_and_chat().await;
-
-    // DEMO: load pic, transfer to base64, and send to multimodal model
-    send_img_and_chat().await;
-
-
+    // listener and server port
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:8080".to_string()).await.unwrap();
+    axum::serve(listener, app).await.unwrap();
     Ok(())
 }

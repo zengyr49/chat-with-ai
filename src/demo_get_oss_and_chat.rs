@@ -1,6 +1,7 @@
 use reqwest::Client;
 use substring::Substring;
-use crate::{oss, send_and_return_stream, ChatBody, Options};
+use crate::base_body::{send_and_return_stream, ChatBody, Options};
+use crate::{oss};
 use crate::oss::OssConfig;
 
 pub async fn get_oss_and_chat() {

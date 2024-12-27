@@ -35,7 +35,7 @@ pub struct ChatResponse {
 ///
 /// 发起请求,并返回全部结果
 ///
-pub async fn send_and_return_all(client: Client, body: ChatBody) {
+pub async fn send_and_return_all(client: Client, body: ChatBody) -> String {
     // 发起请求,并返回全部结果
     let mut res = client.post("http://localhost:11434/api/generate")
         .header("Content-Type", "application/json")
@@ -44,6 +44,7 @@ pub async fn send_and_return_all(client: Client, body: ChatBody) {
     println!("{:?}", res);
     let res_json = res.json::<ChatResponse>().await.unwrap();
     println!("{:?}", res_json.response);
+    res_json.response.unwrap()
 }
 
 ///
