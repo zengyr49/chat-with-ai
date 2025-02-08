@@ -1,4 +1,4 @@
-use crate::base_body::{send_and_return_stream, ChatBody, Options};
+use crate::ollama::base_body::{send_and_return_stream, ChatBody, Options};
 use reqwest::Client;
 use std::fs::File;
 use std::io::Read;
@@ -37,7 +37,7 @@ pub async fn read_file_and_chat() {
 
 #[cfg(test)]
 mod tests {
-    use crate::demo_read_file_and_chat::read_file_and_chat;
+    use crate::ollama::demo::demo_read_file_and_chat::read_file_and_chat;
 
     #[tokio::test]
     async fn test() {

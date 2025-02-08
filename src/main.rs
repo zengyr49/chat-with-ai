@@ -1,10 +1,7 @@
 mod oss;
-mod demo_get_oss_and_chat;
-mod demo_send_img_and_chat;
-
-mod demo_read_file_and_chat;
-mod base_body;
 mod img_chat;
+mod ollama;
+mod deepseek;
 
 use axum::Router;
 use axum::routing::post;

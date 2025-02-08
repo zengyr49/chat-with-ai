@@ -1,4 +1,4 @@
-use crate::base_body::{send_and_return_all, ChatBody, Options};
+use crate::ollama::base_body::{send_and_return_all, ChatBody, Options};
 use axum::Json;
 use image::ImageReader;
 use minio::s3::utils::b64encode;

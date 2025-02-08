@@ -1,6 +1,6 @@
 use reqwest::Client;
 use substring::Substring;
-use crate::base_body::{send_and_return_stream, ChatBody, Options};
+use crate::ollama::base_body::{send_and_return_stream, ChatBody, Options};
 use crate::{oss};
 use crate::oss::OssConfig;
 
@@ -43,7 +43,7 @@ pub async fn get_oss_and_chat() {
 
 #[cfg(test)]
 mod tests {
-    use crate::demo_get_oss_and_chat::get_oss_and_chat;
+    use crate::ollama::demo::demo_get_oss_and_chat::get_oss_and_chat;
 
     #[tokio::test]
     async fn test() {

@@ -1,7 +1,8 @@
 use std::fs::File;
 use std::io::{BufReader, Cursor};
 use reqwest::Client;
-use crate::base_body::{send_and_return_all, send_and_return_stream, ChatBody, Options};
+// use crate::base_body::{send_and_return_all, send_and_return_stream, ChatBody, Options};
+use crate::ollama::base_body::{send_and_return_all, send_and_return_stream, ChatBody, Options};
 use image::ImageReader;
 use minio::s3::utils::b64encode;
 
@@ -55,7 +56,7 @@ pub fn get_img_and_decode(img_path:String) -> String {
 
 #[cfg(test)]
 mod tests {
-    use crate::demo_send_img_and_chat::{get_img_and_decode, send_img_and_chat};
+    use crate::ollama::demo::demo_send_img_and_chat::{get_img_and_decode, send_img_and_chat};
 
     #[test]
     fn test_get_base64_img() {
